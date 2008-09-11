@@ -1,5 +1,3 @@
-%define gcj_support 1
-
 #ExclusiveArch: i386 x86_64
 
 #BuildRequires: perl(XML::XPath)
@@ -23,7 +21,7 @@ BuildRequires: ganymed-ssh2
 #Release: 0.1.svn2029%{?dist}
 
 Source0: http://oss.tresys.com/projects/slide/chrome/site/src/%{name}-%{version}.tar.gz
-Release: %mkrel 0.2.1
+Release: %mkrel 0.1.1
 
 %define eclipse_name		eclipse
 %define eclipse_base		%{_datadir}/%{eclipse_name}
@@ -31,28 +29,25 @@ Release: %mkrel 0.2.1
 %define svnbase			http://oss.tresys.com/repos/slide/trunk/
 
 #get version numbers from eclipse plugin files
-#%define version		%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} eclipse-feature/feature.xml | xpath /feature/@version 2> /dev/null | cut -d '"' -f 2)
-#%define plugin_ver	%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} slide-plugin/META-INF/MANIFEST.MF | grep Bundle-Version | cut -d : -f 2 | tr -d " ")
-#%define help_ver	%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} slide-help/META-INF/MANIFEST.MF | grep Bundle-Version | cut -d : -f 2 | tr -d " ")
+#define version		%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} eclipse-feature/feature.xml | xpath /feature/@version 2> /dev/null | cut -d '"' -f 2)
+#define plugin_ver	%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} slide-plugin/META-INF/MANIFEST.MF | grep Bundle-Version | cut -d : -f 2 | tr -d " ")
+#define help_ver	%(tar -Oxzf ${RPM_SOURCE_DIR}/%{SOURCE0} slide-help/META-INF/MANIFEST.MF | grep Bundle-Version | cut -d : -f 2 | tr -d " ")
 
 
 Summary: SELinux policy editing plugin for Eclipse
 Name: eclipse-slide
-Version: 1.3.6
+Version: 1.3.9
 
 License: GPLv2
+BuildArch: noarch
 Group: Development/Java
 URL: http://oss.tresys.com/projects/slide
 Requires: eclipse-platform >= 3.2
 Requires: ganymed-ssh2
-%if %{gcj_support}
-BuildRequires: java-gcj-compat-devel
-%else
-BuildArch: noarch
-%endif
 BuildRequires: java-rpmbuild
 Requires: eclipse-setools >= 3.3.2.2
 Requires: policycoreutils >= 1.34
+Requires: selinux-policy-devel
 ExclusiveOS: linux
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -120,31 +115,11 @@ cp -pR ${RPM_BUILD_DIR}/eclipse-slide/slide-plugin/resources ${RPM_BUILD_ROOT}${
 install -p -m644 ${RPM_BUILD_DIR}/eclipse-slide/eclipse-feature/feature.xml ${RPM_BUILD_ROOT}${FEATURE_DIR}
 install -p -m644 ${RPM_BUILD_DIR}/eclipse-slide/slide-help/help.jar ${RPM_BUILD_ROOT}${HELP_JAR}
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
-
 %clean
 rm -rf ${RPM_BUILD_ROOT}
-
-%post
-if [ -x %{_bindir}/rebuild-gcj-db ] 
-then
-	%{_bindir}/rebuild-gcj-db
-fi
-
-%postun
-if [ -x %{_bindir}/rebuild-gcj-db ] 
-then
-	%{_bindir}/rebuild-gcj-db
-fi
 
 %files
 %defattr(-,root,root,0755)
 %{eclipse_base}/plugins/com.tresys.slide*/
 %{eclipse_base}/features/com.tresys.slide*/
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/*
-%endif
 
