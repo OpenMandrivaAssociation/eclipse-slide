@@ -21,7 +21,7 @@ BuildRequires: ganymed-ssh2
 #Release: 0.1.svn2029%{?dist}
 
 Source0: http://oss.tresys.com/projects/slide/chrome/site/src/%{name}-%{version}.tar.gz
-Release: %mkrel 0.1.1
+Release: %mkrel 0.1.0
 
 %define eclipse_name		eclipse
 %define eclipse_base		%{_datadir}/%{eclipse_name}
@@ -36,7 +36,7 @@ Release: %mkrel 0.1.1
 
 Summary: SELinux policy editing plugin for Eclipse
 Name: eclipse-slide
-Version: 1.3.9
+Version: 1.3.11
 
 License: GPLv2
 BuildArch: noarch
@@ -54,29 +54,29 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 
 %description
-SLIDE is an integrated development environment (IDE) for Security Enhanced 
-Linux (SELinux) developers and integrators. 
-SLIDE provides features to make the task of SELinux policy development and 
-testing easier.  This is achieved by providing wizards to automate common 
-tasks and by providing developer-friendly features.  SLIDE is also designed 
-for use with the SELinux Reference Policy, another open source project by 
+SLIDE is an integrated development environment (IDE) for Security Enhanced
+Linux (SELinux) developers and integrators.
+SLIDE provides features to make the task of SELinux policy development and
+testing easier.  This is achieved by providing wizards to automate common
+tasks and by providing developer-friendly features.  SLIDE is also designed
+for use with the SELinux Reference Policy, another open source project by
 Tresys that has become the standard SELinux security policy.
 
 SLIDE Features include:
-A graphical user interface for policy development, including policy syntax 
+A graphical user interface for policy development, including policy syntax
 highlighting and integrated compilation.
 Integration with SELinux Reference Policy.
 Support for both modular and monolithic SELinux policy development.
-Wizards to create complete SELinux policies as well as individual policy 
+Wizards to create complete SELinux policies as well as individual policy
 modules.
-Integrated remote policy installation and audit monitoring, to facilitate 
-policy testing. 
-Seamless integration with the power of standard Eclipse. 
+Integrated remote policy installation and audit monitoring, to facilitate
+policy testing.
+Seamless integration with the power of standard Eclipse.
 
 %prep
 %setup -q -c -n eclipse-slide
 
-%build 
+%build
 export CLASSPATH=
 export OPT_JAR_LIST="`%{__cat} %{_sysconfdir}/ant.d/nodeps`"
 cd slide-plugin
