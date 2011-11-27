@@ -20,7 +20,7 @@ BuildRequires: java-1.6.0-openjdk
 #Release: 0.1.svn2029
 
 Source0: http://oss.tresys.com/projects/slide/chrome/site/src/%{name}-%{version}.tar.gz
-Release: 2
+Release: 4
 
 %define eclipse_name		eclipse/dropins/slide
 %define eclipse_base		%{_datadir}/%{eclipse_name}
