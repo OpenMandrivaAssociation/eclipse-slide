@@ -39,7 +39,7 @@ Version: 1.3.16
 License: GPLv2
 BuildArch: noarch
 Group: Development/Java
-URL: http://oss.tresys.com/projects/slide
+URL: https://oss.tresys.com/projects/slide
 Requires: eclipse-platform >= 3.2
 Requires: ganymed-ssh2
 Requires: eclipse-setools >= 3.3.2.2
